@@ -1,3 +1,18 @@
+### Como subir a aplicação
+
+## Docker
+requisitos
+1 docker instalado e docker-compose
+
+comandos
+docker-compose up -d //roda os containers em background
+./vendor/bin/sail up
+./vendor/bin/sail artisan migrate
+
+endereço http://localhost/ == APP_URL
+
+
+
 ## Teste para Desenvolvedor PHP/Laravel
 
 Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Laravel. 
