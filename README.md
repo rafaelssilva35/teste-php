@@ -11,7 +11,7 @@ docker-compose up -d //roda os containers em background
 
 endereço http://localhost/ == APP_URL
 
-
+sudo chown -R $(id -u):$(id -g) database/migrations
 
 ## Teste para Desenvolvedor PHP/Laravel
 
