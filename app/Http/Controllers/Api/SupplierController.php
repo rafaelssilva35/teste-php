@@ -7,6 +7,7 @@ use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use App\Repositories\SupplierRepositoryInterface;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SupplierController extends Controller
 {
@@ -62,8 +63,10 @@ class SupplierController extends Controller
         if (!$supplier) {
             return response()->json(['message' => 'Supplier not found.'], 404);
         }
-
-        return new SupplierResource($supplier);
+        return response()->json([
+            'message' => 'Fornecedor atualizado com sucesso!',
+            'supplier' => new SupplierResource($supplier)
+        ]);
     }
 
     /**
