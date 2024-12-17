@@ -113,7 +113,7 @@ class SupplierRepository implements SupplierRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($id): bool
+    public function delete($id) : bool
     {
         $supplier = Supplier::find($id);
         if ($supplier) {
