@@ -19,29 +19,19 @@ class SupplierController extends Controller
         $this->supplierRepository = $supplierRepository;
     }
 
-    /**
-     * Display a listing of the suppliers.
-     */
     public function index(Request $request)
     {
         $suppliers = $this->supplierRepository->getAllPaginated(10);
         return Inertia::render('Suppliers/Index', [
             'suppliers' => SupplierResource::collection($suppliers),
-            // 'filters' => $request->all(['search', 'page']),
         ]);
     }
 
-    /**
-     * Show the form for creating a new supplier.
-     */
     public function create()
     {
         return Inertia::render('Suppliers/Create');
     }
 
-    /**
-     * Store a newly created supplier in storage.
-     */
     public function store(StoreSupplierRequest $request)
     {
         $supplier = $this->supplierRepository->create($request->toArray());
@@ -50,9 +40,6 @@ class SupplierController extends Controller
                          ->with('success', 'Supplier created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified supplier.
-     */
     public function edit($id)
     {
         $supplier = $this->supplierRepository->findById($id);
@@ -67,9 +54,6 @@ class SupplierController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified supplier in storage.
-     */
     public function update(UpdateSupplierRequest $request, $id)
     {
         $supplier = $this->supplierRepository->update($id, $request->validated());
@@ -83,9 +67,6 @@ class SupplierController extends Controller
 
     }
 
-    /**
-     * Remove the specified supplier from storage.
-     */
     public function destroy($id)
     {
         $deleted = $this->supplierRepository->delete($id);
