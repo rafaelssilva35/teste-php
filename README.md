@@ -1,69 +1,113 @@
-### Como subir a aplicação
+# **Passo a Passo para Rodar a Aplicação Laravel com Docker Sail**
+---
 
-## Docker
-requisitos
-1 docker instalado e docker-compose
+## **1. Pré-requisitos**
 
-comandos
-docker-compose up -d //roda os containers em background
+Antes de iniciar, certifique-se de ter os seguintes itens instalados no seu ambiente:
+
+- **Docker** e **Docker Compose**
+  - [Instalação do Docker](https://docs.docker.com/get-docker/)
+  - [Instalação do Docker Compose](https://docs.docker.com/compose/install/)
+
+---
+
+## **2. Clonar o Projeto**
+
+```bash
+git clone https://github.com/rafaelssilva35/teste-php.git
+cd teste-php
+```
+
+---
+
+## **3. Instalar Dependências**
+
+```bash
+./vendor/bin/sail composer install
+```
+---
+
+## **4. Copiar o Arquivo `.env`**
+
+Crie o arquivo `.env` a partir do modelo `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+---
+
+## **5. Gerar a Key para criptografia da aplicação**
+
+```bash
+./vendor/bin/sail artisan key:generate
+```
+
+---
+
+## **6. Subir os Containers do Docker Sail**
+
+```bash
 ./vendor/bin/sail up
+```
+
+> ⚠️ Deixe este comando rodando em um terminal. 
+> Caso queira rodar em segundo plano, use:
+> 
+> ```bash
+> ./vendor/bin/sail up -d
+> ```
+
+---
+
+## **7. Configurar o Banco de Dados**
+
+**migrations**:
+
+```bash
 ./vendor/bin/sail artisan migrate
+```
 
-endereço http://localhost/ == APP_URL
+**seeders**:
 
-sudo chown -R $(id -u):$(id -g) database/migrations
+```bash
+./vendor/bin/sail artisan db:seed
+```
 
-## Teste para Desenvolvedor PHP/Laravel
+## **8. Compilar Assets**
 
-Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Laravel. 
+```bash
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run dev
+```
+---
 
-O objetivo deste teste é desenvolver uma API Rest para o cadastro de fornecedores, permitindo a busca por CNPJ ou CPF, utilizando Laravel no backend.
+## **9. Acessar a Aplicação**
 
-## Descrição do Projeto
+A aplicação estará disponível no seguinte endereço:
 
-### Backend (API Laravel):
+```
+http://localhost/
+```
 
-#### CRUD de Fornecedores:
-- **Criar Fornecedor:**
-  - Permita o cadastro de fornecedores usando CNPJ ou CPF, incluindo informações como nome/nome da empresa, contato, endereço, etc.
-  - Valide a integridade e o formato dos dados, como o formato correto de CNPJ/CPF e a obrigatoriedade de campos.
+---
 
-- **Editar Fornecedor:**
-  - Facilite a atualização das informações de fornecedores, mantendo a validação dos dados.
+## **10. **Rodar Testes**
 
-- **Excluir Fornecedor:**
-  - Possibilite a remoção segura de fornecedores.
+Para rodar os testes da aplicação, utilize:
 
-- **Listar Fornecedores:**
-  - Apresente uma lista paginada de fornecedores, com filtragem e ordenação.
+```bash
+./vendor/bin/sail test
+```
 
-#### Migrations:
-- Utilize migrations do Laravel para definir a estrutura do banco de dados, garantindo uma boa organização e facilidade de manutenção.
+---
 
-## Requisitos
+## **11. Parar os Containers**
 
-### Backend:
-- Implementar busca por CNPJ na [BrasilAPI](https://brasilapi.com.br/docs#tag/CNPJ/paths/~1cnpj~1v1~1{cnpj}/get) ou qualquer outro endpoint público.
+Para parar os containers do Docker Sail, execute:
 
-## Tecnologias a serem utilizadas
-- Framework Laravel (PHP) 9.x ou superior
-- MySQL ou Postgres
+```bash
+./vendor/bin/sail down
+```
 
-## Critérios de Avaliação
-- Adesão aos requisitos funcionais e técnicos.
-- Qualidade do código, incluindo organização, padrões de desenvolvimento e segurança.
-- Documentação do projeto, incluindo um README detalhado com instruções de instalação e operação.
-
-## Bônus
-- Implementação de Repository Pattern.
-- Implementação de testes automatizados.
-- Dockerização do ambiente de desenvolvimento.
-- Implementação de cache para otimizar o desempenho.
-
-## Entrega
-- Para iniciar o teste, faça um fork deste repositório; Se você apenas clonar o repositório não vai conseguir fazer push.
-- Crie uma branch com o nome que desejar;
-- Altere o arquivo README.md com as informações necessárias para executar o seu teste (comandos, migrations, seeds, etc);
-- Depois de finalizado, envie-nos o pull request;
-
-
+---
